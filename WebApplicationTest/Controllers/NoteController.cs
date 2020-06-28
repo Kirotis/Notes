@@ -47,13 +47,11 @@ namespace WebApplicationTest.Controllers
             return Ok(note);
         }
 
-        [HttpPut("putNote/{id}")]
-        public async Task<ActionResult> PutNote(Guid id, string newText)
+        [HttpPut("putNote")]
+        public async Task<ActionResult> PutNote(Note note)
         {
-            var note = await _context.Notes.FirstOrDefaultAsync(n => n.Id == id);
-            if (note != null)
+            if (_context.Notes.Any(n => n.Id == note.Id))
             {
-                note.Text = newText;
                 _context.Notes.Update(note);
                 await _context.SaveChangesAsync();
                 return Ok(true);

@@ -27,7 +27,7 @@ namespace WebApplicationTest.Controllers
             return await _context.Notes.ToArrayAsync();
         }
 
-        [HttpGet("getNote")]
+        [HttpGet("getNote/{id}")]
         public async Task<ActionResult<Note>> GetNote(Guid id)
         {
             var note = await _context.Notes.FirstOrDefaultAsync(n => n.Id == id);

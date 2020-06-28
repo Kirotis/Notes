@@ -31,11 +31,7 @@ export class NoteService {
   }
 
   getNote(id):Observable<Note> {
-    return this.http.get<Note>(this.url + 'getNote', {
-      params: {
-        "id": id
-      }
-    })
+    return this.http.get<Note>(this.url + `getNote/${id}`)
   }
 
   updateNote(id, data):Observable<boolean> {

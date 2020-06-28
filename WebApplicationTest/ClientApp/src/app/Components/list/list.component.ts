@@ -19,14 +19,12 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.loadList();
   }
-  onOpened(id) {
-    this.noteService.getNote(id).subscribe(note => {
-      this.noteContainer.clear();
-      const factory: ComponentFactory<NoteComponent> = this.resolver.resolveComponentFactory(NoteComponent);
-      this.componentRef = this.noteContainer.createComponent(factory);
-      this.componentRef.instance.id=id;
-    })
-  }
+  onOpened(id?) {
+    this.noteContainer.clear();
+    const factory: ComponentFactory<NoteComponent> = this.resolver.resolveComponentFactory(NoteComponent);
+    this.componentRef = this.noteContainer.createComponent(factory);
+    this.componentRef.instance.id=id || false;
+}
   loadList(){
     this.noteService.getNotes().subscribe(notes => {
       this.notes = notes;

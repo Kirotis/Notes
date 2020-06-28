@@ -1,0 +1,62 @@
+:host{
+    max-width: 320px;
+    position: absolute;
+    left:calc(50% - 160px);
+    bottom: calc(-100% - 23px);
+    z-index: 1;
+    @media screen and (max-width:359px){
+        left:0;
+    }
+}
+.confirm-delete{
+    background: #2C2C2C;
+    border-radius: 8px;
+    
+    width:100%;
+
+    animation: show-confirm 0.2s ease-in;
+    @keyframes show-confirm {
+        from{opacity: 0; transform: translate(0,-40px);}
+        to{opacity: 1; transform: translate(0,0px);}
+    }
+
+    &__text{
+        padding:24px 32px;
+
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 21px;
+        text-align: center;
+
+        color: #DBDBDB;
+        border-bottom: 1px solid #484848;
+    }
+    &__buttons{
+        display: flex;
+    }
+    &__button{
+        max-width:50%;
+        height:45px;
+
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 21px;
+        cursor: pointer;
+
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &--cancel{
+            color: #DBDBDB;
+            border-left: 1px solid #484848;
+        }
+        &--delete{
+            color: #FF4848;
+        }
+    }
+
+}

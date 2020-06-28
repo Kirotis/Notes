@@ -1,0 +1,10 @@
+<div class="note-list">
+<h2 class="note-list__title">Notes</h2>
+<div class="note-list__container">
+    <app-note-min class="note-list__element" *ngFor="let note of notes" [id]="note.id" [date]="note.date"
+        [text]="note.text" (onOpened)="onOpened($event)" (onUpdated)="onNoteUpdated($event)">
+    </app-note-min>
+    <app-add-min (onAdded)=" onOpened()"></app-add-min>
+</div>
+<div #noteContainer></div>
+</div>

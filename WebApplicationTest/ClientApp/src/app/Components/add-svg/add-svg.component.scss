@@ -1,0 +1,15 @@
+:host{
+    display: flex;
+    align-items: center;
+}
+.add-svg__circle,.add-svg__line {
+    transition: all 0.15s;
+}
+
+:host-context(app-add-min:hover) .add-svg__circle {
+    fill:#549DFF;
+}
+:host-context(app-add-min:hover) .add-svg__line {
+    fill:#2C2C2C;
+    stroke:#2C2C2C;
+}

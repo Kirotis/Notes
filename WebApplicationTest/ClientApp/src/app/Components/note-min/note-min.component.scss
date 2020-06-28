@@ -1,0 +1,42 @@
+:host{
+    position: relative;
+}
+.note-min{
+    background-color: #424242;
+    border-radius: 8px;
+    cursor: pointer;
+
+    padding:24px;
+
+    &__text{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 21px;
+        color: #DBDBDB;
+
+
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+
+        height:42px;
+
+        margin-bottom:20px;
+    }
+    &__footer{
+        display: flex;
+    }
+    &__date{
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 19px;
+        color: #B8B8B8;
+    }
+    &__delete{
+        margin-right: 19px;
+    }
+}

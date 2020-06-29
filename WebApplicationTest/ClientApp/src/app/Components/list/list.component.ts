@@ -23,12 +23,14 @@ export class ListComponent implements OnInit {
     this.noteContainer.clear();
     const factory: ComponentFactory<NoteComponent> = this.resolver.resolveComponentFactory(NoteComponent);
     this.componentRef = this.noteContainer.createComponent(factory);
-    this.componentRef.instance.note = note;
+    this.componentRef.instance.note = note || false;
     this.componentRef.instance.onUpdatedNote.toPromise().then(data => {
       const note = this.notes.find(el => data.id === el.id);
       note.text=data.text;
       note.title=data.title;
-      this.noteContainer.clear();
+    });
+    this.componentRef.instance.onAddedNote.toPromise().then(note => {
+      this.notes.push(note);
     });
   }
   loadList() {

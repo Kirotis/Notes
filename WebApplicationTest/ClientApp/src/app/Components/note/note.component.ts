@@ -17,6 +17,8 @@ export class NoteComponent implements OnInit {
   close():void {
     this.el.nativeElement.remove();
   }
+  @Output() onAddedNote = new EventEmitter<Note>();
+
   ngOnInit() {
     this.isNew=!this.note;
     if(!this.isNew){
@@ -31,6 +33,7 @@ export class NoteComponent implements OnInit {
         this.note.text=note.text;
         this.note.date=note.date;
         this.note.title=note.title;
+        this.onAddedNote.emit(this.note);
       });
     }
   }
@@ -48,13 +51,13 @@ export class NoteComponent implements OnInit {
 
   onTitleInput(value){
     this.noteService.updateNote({id: this.note.id, text: this.note.text, title: value, date: this.note.date}).then(note=>{
-
+      this.updateMin()
     })
     this.autogrowTextarea('note-title');
   }
   onTextInput(value){
     this.noteService.updateNote({id: this.note.id, text: value, title: this.note.title, date: this.note.date}).then(note=>{
-
+      this.updateMin()
     })
     this.autogrowTextarea('note-text');
   }

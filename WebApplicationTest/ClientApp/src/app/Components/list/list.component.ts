@@ -23,15 +23,21 @@ export class ListComponent implements OnInit {
     this.noteContainer.clear();
     const factory: ComponentFactory<NoteComponent> = this.resolver.resolveComponentFactory(NoteComponent);
     this.componentRef = this.noteContainer.createComponent(factory);
-    this.componentRef.instance.id=id || false;
-}
-  loadList(){
-    this.noteService.getNotes().subscribe(notes => {
+    this.componentRef.instance.id = id || false;
+    this.componentRef.instance.onUpdatedNote.then(data => {
+      const note = this.notes.find(el => data.id === el.id);
+      note.text=data.text;
+      note.title=data.title;
+      this.noteContainer.clear();
+    });
+  }
+  loadList() {
+    this.noteService.getNotes().then(notes => {
       this.notes = notes;
     });
   }
-  onNoteUpdated($event){
-    this.loadList();
+  onNoteUpdatedMin(id) {
+    this.notes = this.notes.filter(el => el.id !== id);
   }
   ngOnDestroy() {
     this.componentRef.destroy();

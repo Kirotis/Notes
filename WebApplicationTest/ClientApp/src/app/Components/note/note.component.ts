@@ -1,5 +1,6 @@
-import { Component, OnInit, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, Input,EventEmitter,Output } from '@angular/core';
 import { NoteService } from 'src/app/Services/note.service';
+import Note from 'src/app/Models/Note';
 
 @Component({
   selector: 'app-note',
@@ -7,11 +8,8 @@ import { NoteService } from 'src/app/Services/note.service';
   styleUrls: ['./note.component.scss']
 })
 export class NoteComponent implements OnInit {
-  @Input() id:string;
+  @Input() note:Note;
   isNew:boolean = false;
-  text:string;
-  title:string;
-  date:string;
 
   constructor(private el: ElementRef,private noteService:NoteService) {
   }
@@ -20,19 +18,19 @@ export class NoteComponent implements OnInit {
     this.el.nativeElement.remove();
   }
   ngOnInit() {
-    this.isNew=!this.id;
+    this.isNew=!this.note.id;
     if(!this.isNew){
-      this.noteService.getNote(this.id).subscribe(note=>{
-        this.text=note.text;
-        this.date=note.date;
-        this.title=note.title;
+      this.noteService.getNote(this.note.id).then(note=>{
+        this.note.text=note.text;
+        this.note.date=note.date;
+        this.note.title=note.title;
       });
     }else{
-      this.noteService.addNote().subscribe(note=>{
-        this.id=note.id;
-        this.text=note.text;
-        this.date=note.date;
-        this.title=note.title;
+      this.noteService.addNote().then(note=>{
+        this.note.id=note.id;
+        this.note.text=note.text;
+        this.note.date=note.date;
+        this.note.title=note.title;
       });
     }
   }
@@ -43,12 +41,21 @@ export class NoteComponent implements OnInit {
     },10);
     
   }
+  @Output() onUpdatedNote = new EventEmitter<Note>();
+  updateMin(){
+    this.onUpdatedNote.emit(this.note);
+  }
+
   onTitleInput(value){
-    this.noteService.updateNote({id: this.id, text: this.text, title: value, date: this.date}).subscribe()
+    this.noteService.updateNote({id: this.note.id, text: this.note.text, title: value, date: this.note.date}).then(note=>{
+
+    })
     this.autogrowTextarea('note-title');
   }
   onTextInput(value){
-    this.noteService.updateNote({id: this.id, text: value, title: this.title, date: this.date}).subscribe()
+    this.noteService.updateNote({id: this.note.id, text: value, title: this.note.title, date: this.note.date}).then(note=>{
+
+    })
     this.autogrowTextarea('note-text');
   }
   autogrowTextarea(id){

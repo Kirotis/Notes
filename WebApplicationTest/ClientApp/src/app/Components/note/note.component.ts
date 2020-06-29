@@ -20,7 +20,7 @@ export class NoteComponent implements OnInit {
   ngOnInit() {
     this.isNew=!this.note.id;
     if(!this.isNew){
-      this.noteService.getNote(this.id).then(note=>{
+      this.noteService.getNote(this.note.id).then(note=>{
         this.note.text=note.text;
         this.note.date=note.date;
         this.note.title=note.title;

@@ -18,7 +18,7 @@ export class NoteComponent implements OnInit {
     this.el.nativeElement.remove();
   }
   ngOnInit() {
-    this.isNew=!this.note.id;
+    this.isNew=!this.note;
     if(!this.isNew){
       this.noteService.getNote(this.note.id).then(note=>{
         this.note.text=note.text;

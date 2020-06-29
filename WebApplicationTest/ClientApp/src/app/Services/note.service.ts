@@ -17,27 +17,27 @@ export class NoteService {
     @Inject('BASE_URL') private baseUrl: string
   ) { }
 
-  getNotes(): Observable<Note[]> {
+  getNotes(): Promise<Note[]> {
     return this.http.get<Note[]>(this.url + 'getNotes').toPromise()
   }
 
-  getNote(id):Observable<Note> {
+  getNote(id):Promise<Note> {
     return this.http.get<Note>(this.url + `getNote/${id}`).toPromise()
   }
 
-  updateNote(note: Note):Observable<boolean> {
+  updateNote(note: Note):Promise<boolean> {
     const formData = new FormData();
     formData.append('val', JSON.stringify(note));
 
     return this.http.put<boolean>(`${this.url}putNote`, formData).toPromise();
   }
 
-  deleteNote(id):Observable<boolean> {
+  deleteNote(id):Promise<boolean> {
     return this.http.delete<boolean>(`${this.url}deleteNote/${id}`).toPromise();
 
   }
 
-  addNote():Observable<Note> {
+  addNote():Promise<Note> {
     return this.http.get<Note>(this.url + 'addNote').toPromise()
   }
 }

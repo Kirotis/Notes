@@ -9,23 +9,23 @@ import Note from 'src/app/Models/Note';
 })
 export class NoteComponent implements OnInit {
 
-  @Input() note:Note;
-
-  @Output() onUpdatedNote = new EventEmitter<Note>();
+  @Input() note: Note;
 
   @Output() onAddedNote = new EventEmitter<Note>();
 
   isNew:boolean = false;
 
-  constructor(private el: ElementRef,private noteService:NoteService) {
-  }
+  constructor(
+    private el: ElementRef,
+    private noteService:NoteService
+    ) { }
 
-  close():void {
+  close(): void {
     this.el.nativeElement.remove();
   }
 
   ngOnInit() {
-    this.isNew=!this.note;
+    this.isNew = !this.note.id;
     if(!this.isNew){
       this.noteService.getNote(this.note.id).then(note=>{
         this.note.text=note.text;
@@ -49,28 +49,14 @@ export class NoteComponent implements OnInit {
     },10);
     
   }
-  
-  updateMin(){
-    this.onUpdatedNote.emit(this.note);
-  }
 
   onTitleInput(value: string): void {
-    const note = this.note;
-    note.title = value;
-    this.noteService.updateNote(note).then(_ => {
-      this.note.title = value;
-      this.updateMin()
-    })
+    this.note.title = value;
     this.autogrowTextarea('note-title');
   }
 
   onTextInput(value: string): void {
-    const note = this.note;
-    note.text = value;
-    this.noteService.updateNote(note).then(_ => {
-      this.note.text = value;
-      this.updateMin()
-    })
+    this.note.text = value;
     this.autogrowTextarea('note-text');
   }
   

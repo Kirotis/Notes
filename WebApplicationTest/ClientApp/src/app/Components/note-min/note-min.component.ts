@@ -31,8 +31,8 @@ export class NoteMinComponent implements OnInit {
     this.noteContainer.clear();
     const factory: ComponentFactory<ConfirmDeleteComponent> = this.resolver.resolveComponentFactory(ConfirmDeleteComponent);
     this.componentRef = this.noteContainer.createComponent(factory);
-    this.componentRef.instance.onDeleted.toPromise().then(data => {
-      this.noteService.deleteNote(this.note.id).then(result => {
+    this.componentRef.instance.onDeleted.subscribe(__ => {
+      this.noteService.deleteNote(this.note.id).then(_ => {
         this.updateMin();
         this.noteContainer.clear();
       })

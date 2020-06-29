@@ -3,7 +3,7 @@
         Вы уверены, что хотите удалить заметку?
     </div>
     <div class="confirm-delete__buttons">
-        <div class="confirm-delete__button confirm-delete__button--delete" (click)="delete()">Удалить</div>
-        <div class="confirm-delete__button confirm-delete__button--cancel" (click)="cancel()">Отмена</div>
+        <div class="confirm-delete__button confirm-delete__button--delete" (click)="remove($event)">Удалить</div>
+        <div class="confirm-delete__button confirm-delete__button--cancel" (click)="cancel($event)">Отмена</div>
     </div>
 </div>

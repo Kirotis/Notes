@@ -12,10 +12,10 @@ export class ConfirmDeleteComponent {
 
   @Output() onDeleted = new EventEmitter<boolean>();
 
-  delete($event) {
+  remove($event) {
     this.onDeleted.emit($event);
   }
-  cancel() {
+  cancel($event) {
     this.el.nativeElement.remove();
   }
 }

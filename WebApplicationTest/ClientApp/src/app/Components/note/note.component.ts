@@ -51,13 +51,13 @@ export class NoteComponent implements OnInit {
 
   onTitleInput(value){
     this.noteService.updateNote({id: this.note.id, text: this.note.text, title: value, date: this.note.date}).then(note=>{
-
+      this.updateMin()
     })
     this.autogrowTextarea('note-title');
   }
   onTextInput(value){
     this.noteService.updateNote({id: this.note.id, text: value, title: this.note.title, date: this.note.date}).then(note=>{
-
+      this.updateMin()
     })
     this.autogrowTextarea('note-text');
   }

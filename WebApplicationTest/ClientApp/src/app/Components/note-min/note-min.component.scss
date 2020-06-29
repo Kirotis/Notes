@@ -1,5 +1,6 @@
-:host{
-    position: relative;
+:host {
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 .note-min{
     background-color: #424242;
@@ -38,5 +39,9 @@
     }
     &__delete{
         margin-right: 19px;
+        display:none;
+    }
+    &:hover &__delete{
+        display:block;
     }
 }

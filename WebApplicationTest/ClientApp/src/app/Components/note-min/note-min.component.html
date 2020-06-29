@@ -1,5 +1,5 @@
 <div class="note-min" (click)="open($event)">
-    <p class="note-min__text">{{note.text}}</p>
+    <p class="note-min__text">{{note.title}}</p>
     <div class="note-min__footer">
         <img class="note-min__delete" src="assets/svg/delete.svg" (click)="delete()" />
         <p class="note-min__date">{{note.date | date:'mediumDate' }}</p>

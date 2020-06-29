@@ -10,7 +10,7 @@ import Note from 'src/app/Models/Note';
 export class NoteComponent implements OnInit {
 
   @Input() note: Note;
-
+  oldTitle: string;
   @Output() onAddedNote = new EventEmitter<Note>();
 
   isNew:boolean = false;
@@ -21,11 +21,17 @@ export class NoteComponent implements OnInit {
     ) { }
 
   close(): void {
+    this.el.nativeElement.remove();
+    this.note.title = this.oldTitle;
+  }
+  save(): void {
     this.noteService.updateNote(this.note);
     this.el.nativeElement.remove();
   }
 
   ngOnInit() {
+    this.oldTitle = this.note.title;
+
     this.isNew = !this.note.id;
     if(!this.isNew){
       this.noteService.getNote(this.note.id).then(note=>{

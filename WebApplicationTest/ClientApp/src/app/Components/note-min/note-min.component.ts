@@ -20,18 +20,18 @@ export class NoteMinComponent implements OnInit {
   ngOnInit() {
   }
 
-  @Output() onOpened = new EventEmitter<string>();
+  @Output() onOpened = new EventEmitter<Note>();
   open($event) {
     if ($event.target.className === 'note-min__delete') {
       return;
     }
-    this.onOpened.emit(this.note.id);
+    this.onOpened.emit(this.note);
   }
   delete() {
     this.noteContainer.clear();
     const factory: ComponentFactory<ConfirmDeleteComponent> = this.resolver.resolveComponentFactory(ConfirmDeleteComponent);
     this.componentRef = this.noteContainer.createComponent(factory);
-    this.componentRef.instance.onDeleted.then(data => {
+    this.componentRef.instance.onDeleted.toPromise().then(data => {
       this.noteService.deleteNote(this.note.id).then(result => {
         this.updateMin();
         this.noteContainer.clear();

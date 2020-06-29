@@ -8,7 +8,7 @@
                     rows="1" 
                     id="note-title" 
                     (input)="onTitleInput(titleInput.value)" 
-                    #titleInput>{{title}}</textarea>
+                    #titleInput>{{note.title}}</textarea>
                 </header>    
                 <div class="note__body">
                     <textarea 
@@ -16,7 +16,7 @@
                     class="note__text" 
                     rows="1" id="note-text" 
                     (input)="onTextInput(textInput.value)" 
-                    #textInput>{{text}}</textarea>
+                    #textInput>{{note.text}}</textarea>
                 </div>
             </div>
             <div class="note__close" (click)="close()">

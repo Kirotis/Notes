@@ -21,6 +21,7 @@ export class NoteComponent implements OnInit {
     ) { }
 
   close(): void {
+    this.noteService.updateNote(this.note);
     this.el.nativeElement.remove();
   }
 

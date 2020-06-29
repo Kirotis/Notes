@@ -8,7 +8,13 @@ import Note from 'src/app/Models/Note';
   styleUrls: ['./note.component.scss']
 })
 export class NoteComponent implements OnInit {
+
   @Input() note:Note;
+
+  @Output() onUpdatedNote = new EventEmitter<Note>();
+
+  @Output() onAddedNote = new EventEmitter<Note>();
+
   isNew:boolean = false;
 
   constructor(private el: ElementRef,private noteService:NoteService) {
@@ -17,7 +23,6 @@ export class NoteComponent implements OnInit {
   close():void {
     this.el.nativeElement.remove();
   }
-  @Output() onAddedNote = new EventEmitter<Note>();
 
   ngOnInit() {
     this.isNew=!this.note;
@@ -44,23 +49,31 @@ export class NoteComponent implements OnInit {
     },10);
     
   }
-  @Output() onUpdatedNote = new EventEmitter<Note>();
+  
   updateMin(){
     this.onUpdatedNote.emit(this.note);
   }
 
-  onTitleInput(value){
-    this.noteService.updateNote({id: this.note.id, text: this.note.text, title: value, date: this.note.date}).then(note=>{
+  onTitleInput(value: string): void {
+    const note = this.note;
+    note.title = value;
+    this.noteService.updateNote(note).then(_ => {
+      this.note.title = value;
       this.updateMin()
     })
     this.autogrowTextarea('note-title');
   }
-  onTextInput(value){
-    this.noteService.updateNote({id: this.note.id, text: value, title: this.note.title, date: this.note.date}).then(note=>{
+
+  onTextInput(value: string): void {
+    const note = this.note;
+    note.text = value;
+    this.noteService.updateNote(note).then(_ => {
+      this.note.text = value;
       this.updateMin()
     })
     this.autogrowTextarea('note-text');
   }
+  
   autogrowTextarea(id){
     let  textArea = document.getElementById(id);       
     textArea.style.overflow = 'hidden';

@@ -21,23 +21,23 @@ export class NoteService {
     return this.http.get<Note[]>(this.url + 'getNotes').toPromise()
   }
 
-  getNote(id):Promise<Note> {
+  getNote(id): Promise<Note> {
     return this.http.get<Note>(this.url + `getNote/${id}`).toPromise()
   }
 
-  updateNote(note: Note):Promise<boolean> {
+  updateNote(note: Note): Promise<boolean> {
     const formData = new FormData();
     formData.append('val', JSON.stringify(note));
 
     return this.http.put<boolean>(`${this.url}putNote`, formData).toPromise();
   }
 
-  deleteNote(id):Promise<boolean> {
+  deleteNote(id): Promise<boolean> {
     return this.http.delete<boolean>(`${this.url}deleteNote/${id}`).toPromise();
 
   }
 
-  addNote():Promise<Note> {
+  addNote(): Promise<Note> {
     return this.http.get<Note>(this.url + 'addNote').toPromise()
   }
 }

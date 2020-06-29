@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using WebApplicationTest.Models;
 
 namespace WebApplicationTest.Controllers
@@ -48,8 +50,9 @@ namespace WebApplicationTest.Controllers
         }
 
         [HttpPut("putNote")]
-        public async Task<ActionResult> PutNote(Note note)
+        public async Task<ActionResult> PutNote([FromForm]string val)
         {
+            Note note = JsonConvert.DeserializeObject<Note>(val);
             if (_context.Notes.Any(n => n.Id == note.Id))
             {
                 _context.Notes.Update(note);

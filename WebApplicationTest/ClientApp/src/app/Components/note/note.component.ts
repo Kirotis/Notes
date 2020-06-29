@@ -44,11 +44,11 @@ export class NoteComponent implements OnInit {
     
   }
   onTitleInput(value){
-    this.noteService.updateNote(this.id,{title:value}).subscribe()
+    this.noteService.updateNote({id: this.id, text: this.text, title: value, date: this.date}).subscribe()
     this.autogrowTextarea('note-title');
   }
   onTextInput(value){
-    this.noteService.updateNote(this.id,{text:value}).subscribe()
+    this.noteService.updateNote({id: this.id, text: value, title: this.title, date: this.date}).subscribe()
     this.autogrowTextarea('note-text');
   }
   autogrowTextarea(id){

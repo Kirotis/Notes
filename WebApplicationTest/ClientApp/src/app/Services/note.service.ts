@@ -34,16 +34,16 @@ export class NoteService {
     return this.http.get<Note>(this.url + `getNote/${id}`)
   }
 
-  updateNote(id, data):Observable<boolean> {
-    console.log(id,data)
+  updateNote(note: Note):Observable<boolean> {
     // const note = this.notes.find(el=>el.id===id);
     // if(typeof data.title==='string')note.title=data.title;
     // if(typeof  data.text==='string')note.text=data.text;
     // return of(true)
-    const formData = new FormData();
-    formData.append('newText', data);
 
-    return this.http.put<boolean>(`${this.url}putNote/${id}`, formData);
+    const formData = new FormData();
+    formData.append('val', JSON.stringify(note));
+
+    return this.http.put<boolean>(`${this.url}putNote`, formData);
   }
 
   deleteNote(id):Observable<boolean> {
